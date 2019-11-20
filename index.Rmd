@@ -189,4 +189,3 @@ if(exists("filename")){
 ```
 
 This makes sure, that they can only upload the data via drag and drop to the specified folder. 
-
