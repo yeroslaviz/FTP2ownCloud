@@ -2,4 +2,4 @@
 
 Using ownCloud as FTP server
 
-Go to website, [yeroslaviz.github.io](https://yeroslaviz.github.io).
+Go to website, [FTP2ownCloud](https://yeroslaviz.github.io/FTP2ownCloud/).
