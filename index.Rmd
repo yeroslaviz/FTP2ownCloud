@@ -9,10 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-h4 {
-  background-color: red;
-}
-
 ## Preliminaries
 
 As we have now switched to using our own [ownCloud](https://datashare.biochem.mpg.de/login) account instead of the QNAP server as an FTP alternative, it should be available for everyone to use. For that reason you first must connect your folder of interest to the ownCloud account (see instructions below).
