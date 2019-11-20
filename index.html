@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Assa Yeroslaviz" />
+
+<meta name="date" content="2019-11-19" />
+
+<title>ownCloud as FTP Server</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ownCloud as FTP server</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/yeroslaviz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/AssaYeroslaviz">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/ayeroslaviz/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">ownCloud as FTP Server</h1>
+<h4 class="author">Assa Yeroslaviz</h4>
+<h4 class="date">11/19/2019</h4>
+
+</div>
+
+
+<p>h4 { background-color: red; }</p>
+<div id="preliminaries" class="section level2">
+<h2>Preliminaries</h2>
+<p>As we have now switched to using our own <a href="https://datashare.biochem.mpg.de/login">ownCloud</a> account instead of the QNAP server as an FTP alternative, it should be available for everyone to use. For that reason you first must connect your folder of interest to the ownCloud account (see instructions below).</p>
+<p>Some thing must be clear in advance to prevent us from loosing data and causing future problems.</p>
+<ol style="list-style-type: decimal">
+<li>For now the storage space on our ownCloud FTP account (henceforth <strong>coxFTP</strong>) is <strong>5TB</strong>. Before starting the upload, if you know that you need more, please let the IT contact person know (me for now 😉). We can call the IT department and they will incease it up to 15TB.</li>
+<li><p><a href="https://datashare.biochem.mpg.de/login">ownCloud</a>, for those of you, who are not familiar with it, works similar to Dropbox.</p>
+It is based on synchronisation of files between two points. So <span style="color:red"><strong>if you delete the files from the target folder, it will be deleted on the other end (source)</strong></span>. For that reason, it is always very important to severe the connection between the ownCloud client on your desktop and the pool folder <strong>after the upload was done</strong> (see <a href="#Capping">step 11</a> in the next section).</li>
+<li><p>Uploading several Terabytes of data can take some time, so please be patient with it. Tests have shown good results for different data sets. ~600Gb takes a few hours, 2.6TB takes ~1.5-2.5 days. If you have any problems, please let me know. 😄</p></li>
+</ol>
+</div>
+<div id="step-by-step-instructions" class="section level2">
+<h2>Step-by-step instructions</h2>
+<p>These instructions are based on an iMac and a windows computer. The images to the left originate from an iMac while on the right hand side the windows version can be seen. <br /> The examples are based on connecting ownCloud to our pool-folder <code>pool-cox-pub</code>, where the folder <code>Users/</code> should be synchronized.</p>
+<ol style="list-style-type: decimal">
+<li><p>If you still don’t have the desktop client, download it from <a href="https://owncloud.com/download/#desktop-clients">the OwnCloude page</a> and install it. When the intallation is done, start the tool. A pop-up window will open, where one can connect to the server.</p></li>
+<li><p>Connect the pool folder with the data to your computer.</p></li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/1.png" alt="Connect to pool folders. **left** - MacOS view; **right** - Windows network drive connection`" width="1749" />
+<p class="caption">
+Connect to pool folders. <strong>left</strong> - MacOS view; <strong>right</strong> - Windows network drive connection`
+</p>
+</div>
+<ul>
+<li>With a mac go to the Finder and hold <code>Cmd+K</code> to open the ’Connect to server window`.</li>
+<li>With a window computer open Explorer, <code>Win+E</code> and go to Network (left in the menu). Right-mouse click on it and choose ‘map network drive’.</li>
+</ul>
+<p>When asked for, insert the path to the folder where the data is stored, e.g. <code>pool-cox-pub</code>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>When the pool folder is attached to the computer, go back to the ownCloud client, or start it again if needed.</p>
+<p>3.1 The server address is “<a href="https://datashare.biochem.mpg.de" class="uri">https://datashare.biochem.mpg.de</a>” and click <strong><code>next</code></strong>.</p>
+<p>3.2 The borwser opens automatically and one must input the credentials for the server. The user name for this account is <strong>ds_cox_ftp</strong>; The password is the same as for the old FTP server.</p>
+<p>3.3 “Authorize” the access to the server.</p></li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/2.png" alt="Authorize the connection in the browser" width="1602" />
+<p class="caption">
+Authorize the connection in the browser
+</p>
+</div>
+<p>It then goes back to the desktop client</p>
+<ol start="4" style="list-style-type: decimal">
+<li>On the top of the desktop client choose the option <strong>Manually create folder sync connection</strong> -&gt; <strong>“Connect…”</strong>.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/3.png" alt="Create folder Coennection [**left** - MacOS; **right** - Windows] " width="1803" />
+<p class="caption">
+Create folder Coennection [<strong>left</strong> - MacOS; <strong>right</strong> - Windows]
+</p>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>In the client under <strong>General</strong> make sure to uncheck the option “Ask for confirmation before synchronizing folders larger than…”</li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/4.png" alt="Uncheck limitation size [**left** - MacOS; **right** - Windows] " width="1516" />
+<p class="caption">
+Uncheck limitation size [<strong>left</strong> - MacOS; <strong>right</strong> - Windows]
+</p>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Go back to the tab “ds_cox_ftp”.</p></li>
+<li><p>Click on <strong>“Add Folder Sync Connection”</strong>. A new window opens.</p></li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/5.png" alt="Add Folder Sync Connection [**left** - MacOS; **right** - Windows] " width="860" />
+<p class="caption">
+Add Folder Sync Connection [<strong>left</strong> - MacOS; <strong>right</strong> - Windows]
+</p>
+</div>
+<ol start="8" style="list-style-type: decimal">
+<li>Click <strong>“Choose”</strong> to navigate to the pool folder attached to your computer, where the data to be transfered is stored (<em>In this example we try to synchronize the folder <code>/pool-cox-pub/Users/</code></em>). Than click <strong>“Continue”</strong>.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/6.png" alt="Select the pool folder with the data. [**left** - MacOS; **right** - Windows] " width="1740" />
+<p class="caption">
+Select the pool folder with the data. [<strong>left</strong> - MacOS; <strong>right</strong> - Windows]
+</p>
+</div>
+<ol start="9" style="list-style-type: decimal">
+<li>Next, choose the folder where the data should be seved in, or create a new folder by clicking on “Create folder”. -&gt; “Continue”.</li>
+</ol>
+<ul>
+<li>This step is optional, but recommended. The content of the pool folder will be synchronized into the chosen folder, without compressing or combining data, so if multiple folders exit in the chosen target folder, thay will be synchronized ‘as is’.</li>
+</ul>
+<div class="figure" style="text-align: center">
+<img src="images/7.png" alt="Select target folder. [**left** - MacOS; **right** - Windows]" width="1153" />
+<p class="caption">
+Select target folder. [<strong>left</strong> - MacOS; <strong>right</strong> - Windows]
+</p>
+</div>
+<ol start="10" style="list-style-type: decimal">
+<li>Next, click on <strong>“Add Sync Connection”</strong>. The synchronization process will start automatically.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/8.png" alt="Synchronization is active [**left** - MacOS; **right** - Windows]" width="1121" />
+<p class="caption">
+Synchronization is active [<strong>left</strong> - MacOS; <strong>right</strong> - Windows]
+</p>
+</div>
+<p>In the Datashare folder in the browser under <a href="https://datashare.biochem.mpg.de">“datashare.biochem.mpg.de”</a> one can check if the synchronization runs as it should be. Again, uploading many terabytes takes some time, so be patient. 😄</p>
+<div id="Capping" class="section level4">
+<h4></h4>
+<ol start="11" style="list-style-type: decimal">
+<li><span style="color:red"><strong>IMPORTANT!!!</strong></span> <strong>After</strong> the synchronisation, but <strong>before</strong> the data is given to the collaborators, you must cap the synchronization connection. To do this, click on the <strong>“…”</strong> to the right of the window. Choose then <strong>“remove folder sync connection”</strong>. These will make sure that deleting or modifying the data on the <strong>coxFTP</strong> won’t interfer with or change the original data. <br /> Also the<code>&quot;.owncloudsync.log&quot;</code> files can be deleted, as they are not needed any more.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<img src="images/9.png" alt="**Capping the connection!!!** [**left** - MacOS; **right** - Windows]" width="1723" />
+<p class="caption">
+<strong>Capping the connection!!!</strong> [<strong>left</strong> - MacOS; <strong>right</strong> - Windows]
+</p>
+</div>
+</div>
+</div>
+<div id="sharing-teh-folders-with-your-collaborators." class="section level2">
+<h2>Sharing teh folders with your collaborators.</h2>
+<p><em>In this section there is no difference between iMac or windows, as it all done in the browser.</em></p>
+<p>Using OwnCloud as <strong>coxFTP</strong> we can either share our data with external collaborators, or getting data from them. <br /></p>
+<ul>
+<li>The first part can be done by sending them a link to download the data (see <a href="#Sharing">Sharing data for download</a>). <br /></li>
+<li>To get the data from our external collaboraotrs a specific folder must be created, where the data can be uploaded into. This link is than sent to the collaborators (see <a href="#Getting">Getting data from collaborators</a>])</li>
+</ul>
+<div id="Sharing" class="section level3">
+<h3>Sharing data for download</h3>
+<p>When you have the data you want to share with external collaborators, all you need to do is follow the steps presented above to upload the data to a folder in our ownCloud account. When the data is in the cloud and <strong>you’ve capped the connection in the desktop client</strong>, go to the browser and log-in to the <a href="https://datashare.biochem.mpg.de">Datashare folder</a>. Choos the folder you want to share and click on the right hand side on the link symbol.</p>
+<div class="figure" style="text-align: center">
+<img src="images/10.png" alt="create a public link" width="1588" />
+<p class="caption">
+create a public link
+</p>
+</div>
+<p>The browser splits and to the right there is a tab where you can choos “public links”. Click on it. Then choos “Create Public link”</p>
+<div class="figure" style="text-align: center">
+<img src="images/11.png" alt="public link" width="1756" />
+<p class="caption">
+public link
+</p>
+</div>
+<p>Optional you can give the link a name. As the data is for download only leave the first option, “Download/View” as is. If needed you can secure the link with a password. It is also best to give an experation date, until when the data can be downloaded. Than continue by clicking <strong>“share”</strong>.</p>
+<p>Going backto the right tab in the browser you’ll see the link created. Clikcing on the left symbol will now copy the link to the clipboard and you can paste it to your email or whatever is needed.</p>
+<p>Done !</p>
+</div>
+<div id="Getting" class="section level3">
+<h3>Getting data from the collaborators</h3>
+<p>This is very similar to the above mentioned method with one exception. When you want to get data from external collaboraotrs make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You’ll see the folder in the list. Now go again to the link symbol to the rgiht, click on it and choose “Create public link”. Now instead of download choose <strong>&quot;Upload only (File Drop)</strong>&quot;. Also here you can set a password and an experation date, if needed.</p>
+<div class="figure" style="text-align: center">
+<img src="images/12.png" alt="File Drop link"  />
+<p class="caption">
+File Drop link
+</p>
+</div>
+<p>After confirming the link you can again copy it to the clipboard. A link would look like that - <code>https://datashare.biochem.mpg.de/s/5R8Q739wU7N7C3N</code>.</p>
+<p>When your collaborators get the link and click on it they will see this browser page:</p>
+<div class="figure" style="text-align: center">
+<img src="images/12.png" alt="Anonymous upload"  />
+<p class="caption">
+Anonymous upload
+</p>
+</div>
+<p>This makes sure, that they can only upload the data via drag and drop to the specified folder.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

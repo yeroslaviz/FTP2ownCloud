@@ -1,0 +1,196 @@
+---
+title: "ownCloud as FTP Server"
+author: "Assa Yeroslaviz"
+date: "11/19/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+h4 {
+  background-color: red;
+}
+
+## Preliminaries
+
+As we have now switched to using our own [ownCloud](https://datashare.biochem.mpg.de/login) account instead of the QNAP server as an FTP alternative, it should be available for everyone to use. For that reason you first must connect your folder of interest to the ownCloud account (see instructions below).
+
+Some thing must be clear in advance to prevent us from loosing data and causing future problems.
+
+1. For now the storage space on our ownCloud FTP account (henceforth **coxFTP**) is **5TB**. Before starting the upload, if you know that you need more, please let the IT contact person know (me for now `r emo::ji("wink")`). We can call the IT department and they will incease it up to 15TB. 
+2. [ownCloud](https://datashare.biochem.mpg.de/login), for those of you, who are not familiar with it, works similar to Dropbox. 
+
+   It is based on synchronisation of files between two points. So <span style="color:red">**if you delete the files from the target folder, it will be deleted on the other end (source)**</span>. For that reason, it is always very important to severe the connection between the ownCloud client on your desktop and the pool folder **after the upload was done** (see [step 11](#Capping) in the next section).
+3. Uploading several Terabytes of data can take some time, so please be patient with it. Tests have shown good results for different data sets. ~600Gb takes a few hours, 2.6TB takes ~1.5-2.5 days. If you have any problems, please let me know. `r emo::ji("smile")`
+
+## Step-by-step instructions
+
+These instructions are based on an iMac and a windows computer. The images to the left originate from an iMac while on the right hand side the windows version can be seen. <br />
+The examples are based on connecting ownCloud to our pool-folder `pool-cox-pub`, where the folder `Users/` should be synchronized.
+
+1. If you still don't have the desktop client, download it from [the OwnCloude page](https://owncloud.com/download/#desktop-clients) and install it. When the intallation is done, start the tool. A pop-up window will open, where one can connect to the server.
+
+2. Connect the pool folder with the data to your computer.
+
+```{r  echo=FALSE, fig.cap="Connect to pool folders. **left** - MacOS view; **right** - Windows network drive connection`", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/1.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+- With a mac  go to the Finder and hold `Cmd+K` to open the 'Connect to server window`. 
+- With a window computer open Explorer, `Win+E` and go to Network (left in the menu). Right-mouse click on it and choose 'map network drive'.
+
+When asked for, insert the path to the folder where the data is stored, e.g. `pool-cox-pub`.
+
+3. When the pool folder is attached to the computer, go back to the ownCloud client, or start it again if needed. 
+
+   3.1 The server address is "https://datashare.biochem.mpg.de" and click **`next`**.
+   
+   3.2 The borwser opens automatically and one must input the credentials for the server. The user name for this account is **ds_cox_ftp**; The password is the same as for the old FTP server. 
+   
+   3.3 "Authorize" the access to the server.
+
+```{r  echo=FALSE, fig.cap="Authorize the connection in the browser", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/2.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+It then goes back to the desktop client
+
+4. On the top of the desktop client choose the option **Manually create folder sync connection** -> **"Connect..."**.
+
+```{r  echo=FALSE, fig.cap="Create folder Coennection [**left** - MacOS; **right** - Windows] ", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/3.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+5. In the client under **General** make sure to uncheck the option "Ask for confirmation before synchronizing folders larger than..."
+
+```{r  echo=FALSE, fig.cap="Uncheck limitation size [**left** - MacOS; **right** - Windows] ", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/4.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+6. Go back to the tab "ds_cox_ftp".
+
+7. Click on **"Add Folder Sync Connection"**. A new window opens. 
+
+```{r  echo=FALSE, fig.cap="Add Folder Sync Connection [**left** - MacOS; **right** - Windows] ", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/5.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+8. Click **"Choose"** to navigate to the pool folder attached to your computer, where the data to be transfered is stored (_In this example we try to synchronize the folder `/pool-cox-pub/Users/`_). Than click **"Continue"**.
+
+```{r  echo=FALSE, fig.cap="Select the pool folder with the data. [**left** - MacOS; **right** - Windows] ", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/6.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+9. Next, choose the folder where the data should be seved in, or create a new folder by clicking on "Create folder". -> "Continue".
+
+* This step is optional, but recommended. The content of the pool folder will be synchronized into the chosen folder, without compressing or combining data, so if multiple folders exit in the chosen target folder, thay will be synchronized 'as is'. 
+
+```{r  echo=FALSE, fig.cap="Select target folder. [**left** - MacOS; **right** - Windows]", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/7.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+10. Next, click on **"Add Sync Connection"**. The synchronization process will start automatically. 
+
+```{r  echo=FALSE, fig.cap="Synchronization is active [**left** - MacOS; **right** - Windows]", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/8.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+In the Datashare folder in the browser under ["datashare.biochem.mpg.de"](https://datashare.biochem.mpg.de) one can check if the synchronization runs as it should be. Again, uploading many terabytes takes some time, so be patient.  `r emo::ji("smile")`
+
+#### {#Capping} 
+11. <span style="color:red">**IMPORTANT!!!**</span> **After** the synchronisation, but **before** the data is given to the collaborators, you must cap the synchronization connection. To do this, click on the **"..."** to the right of the window. Choose then **"remove folder sync connection"**. These will make sure that deleting or modifying the data on the **coxFTP** won't interfer with or change the original data.  <br />
+Also the` ".owncloudsync.log"` files can be deleted, as they are not needed any more. 
+
+```{r  echo=FALSE, fig.cap="**Capping the connection!!!** [**left** - MacOS; **right** - Windows]", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/9.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+## Sharing teh folders with your collaborators.
+
+_In this section there is no difference between iMac or windows, as it all done in the browser._
+
+Using OwnCloud as **coxFTP** we can either share our data with external collaborators, or getting data from them. <br />
+
+- The first part can be done by sending them a link to download the data (see [Sharing data for download](#Sharing)).  <br />
+- To get the data from our external collaboraotrs a specific folder must be created, where the data can be uploaded into. This link is than sent to the collaborators (see [Getting data from collaborators](#Getting)])
+
+### Sharing data for download {#Sharing}
+
+When you have the data you want to share with external collaborators, all you need to do is follow the steps presented above to upload the data to a folder in our ownCloud account. When the data is in the cloud and **you've capped the connection in the desktop client**, go to the browser and log-in to the [Datashare folder](https://datashare.biochem.mpg.de). Choos the folder you want to share and click on the right hand side on the link symbol.
+
+```{r  echo=FALSE, fig.cap="create a public link", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/10.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+The browser splits and to the right there is a tab where you can choos "public links". Click on it. Then choos "Create Public link"
+
+```{r  echo=FALSE, fig.cap="public link", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/11.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+Optional you can give the link a name. As the data is for download only leave the first option, "Download/View" as is. If needed you can secure the link with a password. It is also best to give an experation date, until when the data can be downloaded. Than continue by clicking **"share"**.
+
+Going backto the right tab in the browser you'll see the link created. Clikcing on the left symbol will now copy the link to the clipboard and you can paste it to your email or whatever is needed.
+
+Done !
+
+### Getting data from the collaborators {#Getting}
+
+This is very similar to the above mentioned method with one exception. When you want to get data from external collaboraotrs make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the rgiht, click on it and choose "Create public link". 
+Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an experation date, if needed. 
+
+```{r  echo=FALSE, fig.cap="File Drop link", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/12.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+After confirming the link you can again copy it to the clipboard. A link would look like that - `https://datashare.biochem.mpg.de/s/5R8Q739wU7N7C3N`.
+
+When your collaborators get the link and click on it they will see this browser page:
+
+```{r  echo=FALSE, fig.cap="Anonymous upload", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/12.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+This makes sure, that they can only upload the data via drag and drop to the specified folder. 
+
