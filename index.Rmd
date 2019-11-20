@@ -15,8 +15,8 @@ As we have now switched to using our own [ownCloud](https://datashare.biochem.mp
 
 Some thing must be clear in advance to prevent us from loosing data and causing future problems.
 
-1. For now the storage space on our ownCloud FTP account (henceforth **coxFTP**) is **5TB**. Before starting the upload, if you know that you need more, please let the IT contact person know (me for now `r emo::ji("wink")`). We can call the IT department and they will incease it up to 15TB. 
-2. [ownCloud](https://datashare.biochem.mpg.de/login), for those of you, who are not familiar with it, works similar to Dropbox. 
+1. For now the storage space on our ownCloud FTP account (henceforth **coxFTP**) is **5TB**. Before starting the upload, if you know that you need more, please let the IT contact person know (me for now `r emo::ji("wink")`). We can call the IT department and they will incease it up to 15TB.
+2. [ownCloud](https://datashare.biochem.mpg.de/login), for those of you, who are not familiar with it, works similar to Dropbox.
 
    It is based on synchronisation of files between two points. So <span style="color:red">**if you delete the files from the target folder, it will be deleted on the other end (source)**</span>. For that reason, it is always very important to severe the connection between the ownCloud client on your desktop and the pool folder **after the upload was done** (see [step 11](#Capping) in the next section).
 3. Uploading several Terabytes of data can take some time, so please be patient with it. Tests have shown good results for different data sets. ~600Gb takes a few hours, 2.6TB takes ~1.5-2.5 days. If you have any problems, please let me know. `r emo::ji("smile")`
@@ -37,17 +37,17 @@ if(exists("filename")){
 }
 ```
 
-- With a mac  go to the Finder and hold `Cmd+K` to open the 'Connect to server window`. 
+- With a mac  go to the Finder and hold `Cmd+K` to open the 'Connect to server window`.
 - With a window computer open Explorer, `Win+E` and go to Network (left in the menu). Right-mouse click on it and choose 'map network drive'.
 
 When asked for, insert the path to the folder where the data is stored, e.g. `pool-cox-pub`.
 
-3. When the pool folder is attached to the computer, go back to the ownCloud client, or start it again if needed. 
+3. When the pool folder is attached to the computer, go back to the ownCloud client, or start it again if needed.
 
    3.1 The server address is "https://datashare.biochem.mpg.de" and click **`next`**.
-   
-   3.2 The borwser opens automatically and one must input the credentials for the server. The user name for this account is **ds_cox_ftp**; The password is the same as for the old FTP server. 
-   
+
+   3.2 The borwser opens automatically and one must input the credentials for the server. The user name for this account is **ds_cox_ftp**; The password is the same as for the old FTP server.
+
    3.3 "Authorize" the access to the server.
 
 ```{r  echo=FALSE, fig.cap="Authorize the connection in the browser", fig.align="center", fig.pos="!ht"}
@@ -79,7 +79,7 @@ if(exists("filename")){
 
 6. Go back to the tab "ds_cox_ftp".
 
-7. Click on **"Add Folder Sync Connection"**. A new window opens. 
+7. Click on **"Add Folder Sync Connection"**. A new window opens.
 
 ```{r  echo=FALSE, fig.cap="Add Folder Sync Connection [**left** - MacOS; **right** - Windows] ", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/5.png")
@@ -99,7 +99,7 @@ if(exists("filename")){
 
 9. Next, choose the folder where the data should be seved in, or create a new folder by clicking on "Create folder". -> "Continue".
 
-* This step is optional, but recommended. The content of the pool folder will be synchronized into the chosen folder, without compressing or combining data, so if multiple folders exit in the chosen target folder, thay will be synchronized 'as is'. 
+* This step is optional, but recommended. The content of the pool folder will be synchronized into the chosen folder, without compressing or combining data, so if multiple folders exit in the chosen target folder, thay will be synchronized 'as is'.
 
 ```{r  echo=FALSE, fig.cap="Select target folder. [**left** - MacOS; **right** - Windows]", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/7.png")
@@ -108,7 +108,7 @@ if(exists("filename")){
 }
 ```
 
-10. Next, click on **"Add Sync Connection"**. The synchronization process will start automatically. 
+10. Next, click on **"Add Sync Connection"**. The synchronization process will start automatically.
 
 ```{r  echo=FALSE, fig.cap="Synchronization is active [**left** - MacOS; **right** - Windows]", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/8.png")
@@ -119,9 +119,9 @@ if(exists("filename")){
 
 In the Datashare folder in the browser under ["datashare.biochem.mpg.de"](https://datashare.biochem.mpg.de) one can check if the synchronization runs as it should be. Again, uploading many terabytes takes some time, so be patient.  `r emo::ji("smile")`
 
-#### {#Capping} 
+#### {#Capping}
 11. <span style="color:red">**IMPORTANT!!!**</span> **After** the synchronisation, but **before** the data is given to the collaborators, you must cap the synchronization connection. To do this, click on the **"..."** to the right of the window. Choose then **"remove folder sync connection"**. These will make sure that deleting or modifying the data on the **coxFTP** won't interfer with or change the original data.  <br />
-Also the` ".owncloudsync.log"` files can be deleted, as they are not needed any more. 
+Also the` ".owncloudsync.log"` files can be deleted, as they are not needed any more.
 
 ```{r  echo=FALSE, fig.cap="**Capping the connection!!!** [**left** - MacOS; **right** - Windows]", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/9.png")
@@ -167,8 +167,8 @@ Done !
 
 ### Getting data from the collaborators {#Getting}
 
-This is very similar to the above mentioned method with one exception. When you want to get data from external collaboraotrs make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the rgiht, click on it and choose "Create public link". 
-Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an experation date, if needed. 
+This is very similar to the above mentioned method with one exception. When you want to get data from external collaboraotrs make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the rgiht, click on it and choose "Create public link".
+Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an experation date, if needed.
 
 ```{r  echo=FALSE, fig.cap="File Drop link", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/12.png")
@@ -188,5 +188,4 @@ if(exists("filename")){
 }
 ```
 
-This makes sure, that they can only upload the data via drag and drop to the specified folder. 
-
+This makes sure, that they can only upload the data via drag and drop to the specified folder.
