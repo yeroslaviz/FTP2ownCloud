@@ -13,4 +13,4 @@ RnwWeave: knitr
 LaTeX: pdfLaTeX
 
 BuildType: Website
-WebsitePath: ~/ownCloud/ownCloud_Personal/ownCloud_projects/github/FTP2ownCloud
+WebsitePath: ~/ownCloud/ownCloud_Personal/ownCloud_projects/AG_Cox/github/FTP2ownCloud

@@ -13,12 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 As we have now switched to using our own [ownCloud](https://datashare.biochem.mpg.de/login) account instead of the QNAP server as an FTP alternative, it should be available for everyone to use. For that reason you first must connect your folder of interest to the ownCloud account (see instructions below).
 
-Some thing must be clear in advance to prevent us from loosing data and causing future problems.
+Some things must be made clear in advance to prevent us from loosing data and causing future problems.
 
 1. For now the storage space on our ownCloud FTP account (henceforth **coxFTP**) is **5TB**. Before starting the upload, if you know that you need more, please let the IT contact person know (me for now `r emo::ji("wink")`). We can call the IT department and they will incease it up to 15TB.
 2. [ownCloud](https://datashare.biochem.mpg.de/login), for those of you, who are not familiar with it, works similar to Dropbox.
 
-   It is based on synchronisation of files between two points. So <span style="color:red">**if you delete the files from the target folder, it will be deleted on the other end (source)**</span>. For that reason, it is always very important to severe the connection between the ownCloud client on your desktop and the pool folder **after the upload was done** (see [step 11](#Capping) in the next section).
+   It is based on synchronisation of files between two points. So <span style="color:red">**if you delete the files from the target folder, it will be deleted on the other end (source)**</span>. For that reason, it is always very important to sever the connection between the ownCloud client on your desktop and the pool folder **after the upload was done** (see [step 11](#Capping) in the next section).
 3. Uploading several Terabytes of data can take some time, so please be patient with it. Tests have shown good results for different data sets. ~600Gb takes a few hours, 2.6TB takes ~1.5-2.5 days. If you have any problems, please let me know. `r emo::ji("smile")`
 
 ## Step-by-step instructions
@@ -46,7 +46,7 @@ When asked for, insert the path to the folder where the data is stored, e.g. `po
 
    3.1 The server address is "https://datashare.biochem.mpg.de" and click **`next`**.
 
-   3.2 The borwser opens automatically and one must input the credentials for the server. The user name for this account is **ds_cox_ftp**; The password is the same as for the old FTP server.
+   3.2 The browser opens automatically and one must input the credentials for the server. The user name for this account is **ds_cox_ftp**; The password is the same as for the old FTP server (see our [coxWiki](http://coxwiki.biochem.mpg.de).
 
    3.3 "Authorize" the access to the server.
 
@@ -97,7 +97,7 @@ if(exists("filename")){
 }
 ```
 
-9. Next, choose the folder where the data should be seved in, or create a new folder by clicking on "Create folder". -> "Continue".
+9. Next, choose the folder where the data should be saved in, or create a new folder by clicking on "Create folder". -> "Continue".
 
 * This step is optional, but recommended. The content of the pool folder will be synchronized into the chosen folder, without compressing or combining data, so if multiple folders exit in the chosen target folder, thay will be synchronized 'as is'.
 
@@ -130,7 +130,7 @@ if(exists("filename")){
 }
 ```
 
-## Sharing teh folders with your collaborators.
+## Sharing the folders with your collaborators.
 
 _In this section there is no difference between iMac or windows, as it all done in the browser._
 
@@ -143,7 +143,7 @@ Using OwnCloud as **coxFTP** we can either share our data with external collabor
 
 When you have the data you want to share with external collaborators, all you need to do is follow the steps presented above to upload the data to a folder in our ownCloud account. When the data is in the cloud and **you've capped the connection in the desktop client**, go to the browser and log-in to the [Datashare folder](https://datashare.biochem.mpg.de). Choos the folder you want to share and click on the right hand side on the link symbol.
 
-```{r  echo=FALSE, fig.cap="create a public link", fig.align="center", fig.pos="!ht"}
+```{r  echo=FALSE, fig.cap="create a public link 1", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/10.png")
 if(exists("filename")){
   knitr::include_graphics(filename)
@@ -152,8 +152,9 @@ if(exists("filename")){
 
 The browser splits and to the right there is a tab where you can choose "public links". Click on it. Then choose "Create Public link"
 
-```{r  echo=FALSE, fig.cap="public link", fig.align="center", fig.pos="!ht"}
-filename <- file.path("images/11.png")
+
+```{r  echo=FALSE, fig.cap="create a public link 2", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/10.1.png")
 if(exists("filename")){
   knitr::include_graphics(filename)
 }
@@ -161,28 +162,32 @@ if(exists("filename")){
 
 Optional you can give the link a name. As the data is for download only leave the first option, "Download/View" as is. If needed you can secure the link with a password. It is also best to give an experation date, until when the data can be downloaded. Than continue by clicking **"share"**.
 
-Going backto the right tab in the browser you'll see the link created. Clikcing on the left symbol will now copy the link to the clipboard and you can paste it to your email or whatever is needed.
+Going back to the right tab in the browser you'll see the link created. Clicking on the left symbol will now copy the link to the clipboard and you can paste it to your email or whatever is needed.
 
 Done !
 
 ### Getting data from the collaborators {#Getting}
 
-<<<<<<< Updated upstream
-This is very similar to the above mentioned method with one exception. When you want to get data from external collaboraotrs make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the rgiht, click on it and choose "Create public link".
-Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an experation date, if needed.
-=======
-This is very similar to the above mentioned method with one exception. When you want to get data from external collaborators make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the right, click on it and choose "Create public link". 
-Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an expiration date, if needed. 
->>>>>>> Stashed changes
+This is very similar to the above mentioned method with one exception. When you want to get data from external collaborators, make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the right, click on it and choose "Create public link".
+Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an expiration date, if needed.
 
-```{r  echo=FALSE, fig.cap="Upload only link", fig.align="center", fig.pos="!ht", out.width=300}
+```{r  echo=FALSE, fig.cap="", fig.align="center", fig.pos="!ht"}
+filename <- file.path("images/11.png")
+if(exists("filename")){
+  knitr::include_graphics(filename)
+}
+```
+
+```{r  echo=FALSE, fig.cap="Upload only link", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/12.png")
 if(exists("filename")){
   knitr::include_graphics(filename)
 }
 ```
 
-After confirming the link you can again copy it to the clipboard. A link would look like that - `https://datashare.biochem.mpg.de/s/5R8Q739wU7N7C3N`.
+After confirming the link you can again copy it to the clipboard. 
+
+A link would look like that - `https://datashare.biochem.mpg.de/s/5R8Q739wU7N7C3N`. Thus again you can share with the help of your email or any other methods with your collaborators. 
 
 When your collaborators get the link and click on it they will see this browser page:
 

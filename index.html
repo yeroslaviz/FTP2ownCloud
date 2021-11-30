@@ -292,11 +292,11 @@ $(document).ready(function () {
 <div id="preliminaries" class="section level2">
 <h2>Preliminaries</h2>
 <p>As we have now switched to using our own <a href="https://datashare.biochem.mpg.de/login">ownCloud</a> account instead of the QNAP server as an FTP alternative, it should be available for everyone to use. For that reason you first must connect your folder of interest to the ownCloud account (see instructions below).</p>
-<p>Some thing must be clear in advance to prevent us from loosing data and causing future problems.</p>
+<p>Some things must be made clear in advance to prevent us from loosing data and causing future problems.</p>
 <ol style="list-style-type: decimal">
 <li><p>For now the storage space on our ownCloud FTP account (henceforth <strong>coxFTP</strong>) is <strong>5TB</strong>. Before starting the upload, if you know that you need more, please let the IT contact person know (me for now 😉). We can call the IT department and they will incease it up to 15TB.</p></li>
 <li><p><a href="https://datashare.biochem.mpg.de/login">ownCloud</a>, for those of you, who are not familiar with it, works similar to Dropbox.</p>
-<p>It is based on synchronisation of files between two points. So <span style="color:red"><strong>if you delete the files from the target folder, it will be deleted on the other end (source)</strong></span>. For that reason, it is always very important to severe the connection between the ownCloud client on your desktop and the pool folder <strong>after the upload was done</strong> (see <a href="#Capping">step 11</a> in the next section).</p></li>
+<p>It is based on synchronisation of files between two points. So <span style="color:red"><strong>if you delete the files from the target folder, it will be deleted on the other end (source)</strong></span>. For that reason, it is always very important to sever the connection between the ownCloud client on your desktop and the pool folder <strong>after the upload was done</strong> (see <a href="#Capping">step 11</a> in the next section).</p></li>
 <li><p>Uploading several Terabytes of data can take some time, so please be patient with it. Tests have shown good results for different data sets. ~600Gb takes a few hours, 2.6TB takes ~1.5-2.5 days. If you have any problems, please let me know. 😄</p></li>
 </ol>
 </div>
@@ -321,7 +321,7 @@ Connect to pool folders. <strong>left</strong> - MacOS view; <strong>right</stro
 <ol start="3" style="list-style-type: decimal">
 <li><p>When the pool folder is attached to the computer, go back to the ownCloud client, or start it again if needed.</p>
 <p>3.1 The server address is “<a href="https://datashare.biochem.mpg.de" class="uri">https://datashare.biochem.mpg.de</a>” and click <strong><code>next</code></strong>.</p>
-<p>3.2 The borwser opens automatically and one must input the credentials for the server. The user name for this account is <strong>ds_cox_ftp</strong>; The password is the same as for the old FTP server.</p>
+<p>3.2 The browser opens automatically and one must input the credentials for the server. The user name for this account is <strong>ds_cox_ftp</strong>; The password is the same as for the old FTP server (see our <a href="http://coxwiki.biochem.mpg.de">coxWiki</a>.</p>
 <p>3.3 “Authorize” the access to the server.</p></li>
 </ol>
 <div class="figure" style="text-align: center">
@@ -369,7 +369,7 @@ Select the pool folder with the data. [<strong>left</strong> - MacOS; <strong>ri
 </p>
 </div>
 <ol start="9" style="list-style-type: decimal">
-<li>Next, choose the folder where the data should be seved in, or create a new folder by clicking on “Create folder”. -&gt; “Continue”.</li>
+<li>Next, choose the folder where the data should be saved in, or create a new folder by clicking on “Create folder”. -&gt; “Continue”.</li>
 </ol>
 <ul>
 <li>This step is optional, but recommended. The content of the pool folder will be synchronized into the chosen folder, without compressing or combining data, so if multiple folders exit in the chosen target folder, thay will be synchronized ‘as is’.</li>
@@ -403,8 +403,8 @@ Synchronization is active [<strong>left</strong> - MacOS; <strong>right</strong>
 </div>
 </div>
 </div>
-<div id="sharing-teh-folders-with-your-collaborators." class="section level2">
-<h2>Sharing teh folders with your collaborators.</h2>
+<div id="sharing-the-folders-with-your-collaborators." class="section level2">
+<h2>Sharing the folders with your collaborators.</h2>
 <p><em>In this section there is no difference between iMac or windows, as it all done in the browser.</em></p>
 <p>Using OwnCloud as <strong>coxFTP</strong> we can either share our data with external collaborators, or getting data from them. <br /></p>
 <ul>
@@ -415,32 +415,34 @@ Synchronization is active [<strong>left</strong> - MacOS; <strong>right</strong>
 <h3>Sharing data for download</h3>
 <p>When you have the data you want to share with external collaborators, all you need to do is follow the steps presented above to upload the data to a folder in our ownCloud account. When the data is in the cloud and <strong>you’ve capped the connection in the desktop client</strong>, go to the browser and log-in to the <a href="https://datashare.biochem.mpg.de">Datashare folder</a>. Choos the folder you want to share and click on the right hand side on the link symbol.</p>
 <div class="figure" style="text-align: center">
-<img src="images/10.png" alt="create a public link" width="1588" />
+<img src="images/10.png" alt="create a public link 1" width="1536" />
 <p class="caption">
-create a public link
+create a public link 1
 </p>
 </div>
 <p>The browser splits and to the right there is a tab where you can choose “public links”. Click on it. Then choose “Create Public link”</p>
 <div class="figure" style="text-align: center">
-<img src="images/11.png" alt="public link" width="1756" />
+<img src="images/10.1.png" alt="create a public link 2" width="1588" />
 <p class="caption">
-public link
+create a public link 2
 </p>
 </div>
 <p>Optional you can give the link a name. As the data is for download only leave the first option, “Download/View” as is. If needed you can secure the link with a password. It is also best to give an experation date, until when the data can be downloaded. Than continue by clicking <strong>“share”</strong>.</p>
-<p>Going backto the right tab in the browser you’ll see the link created. Clikcing on the left symbol will now copy the link to the clipboard and you can paste it to your email or whatever is needed.</p>
+<p>Going back to the right tab in the browser you’ll see the link created. Clicking on the left symbol will now copy the link to the clipboard and you can paste it to your email or whatever is needed.</p>
 <p>Done !</p>
 </div>
 <div id="Getting" class="section level3">
 <h3>Getting data from the collaborators</h3>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream This is very similar to the above mentioned method with one exception. When you want to get data from external collaboraotrs make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You’ll see the folder in the list. Now go again to the link symbol to the rgiht, click on it and choose “Create public link”. Now instead of download choose <strong>“Upload only (File Drop)<strong>”. Also here you can set a password and an experation date, if needed. ======= This is very similar to the above mentioned method with one exception. When you want to get data from external collaborators make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You’ll see the folder in the list. Now go again to the link symbol to the right, click on it and choose ”Create public link”. Now instead of download choose </strong>”Upload only (File Drop)</strong>”. Also here you can set a password and an expiration date, if needed. &gt;&gt;&gt;&gt;&gt;&gt;&gt; Stashed changes</p>
+<p>This is very similar to the above mentioned method with one exception. When you want to get data from external collaborators, make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You’ll see the folder in the list. Now go again to the link symbol to the right, click on it and choose “Create public link”. Now instead of download choose <strong>“Upload only (File Drop)</strong>”. Also here you can set a password and an expiration date, if needed.</p>
+<p><img src="images/11.png" width="1756" style="display: block; margin: auto;" /></p>
 <div class="figure" style="text-align: center">
-<img src="images/12.png" alt="Upload only link" width="300" />
+<img src="images/12.png" alt="Upload only link" width="830" />
 <p class="caption">
 Upload only link
 </p>
 </div>
-<p>After confirming the link you can again copy it to the clipboard. A link would look like that - <code>https://datashare.biochem.mpg.de/s/5R8Q739wU7N7C3N</code>.</p>
+<p>After confirming the link you can again copy it to the clipboard.</p>
+<p>A link would look like that - <code>https://datashare.biochem.mpg.de/s/5R8Q739wU7N7C3N</code>. Thus again you can share with the help of your email or any other methods with your collaborators.</p>
 <p>When your collaborators get the link and click on it they will see this browser page:</p>
 <div class="figure" style="text-align: center">
 <img src="images/13.png" alt="Anonymous upload" width="2451" />
