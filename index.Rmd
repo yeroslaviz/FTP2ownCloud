@@ -150,7 +150,7 @@ if(exists("filename")){
 }
 ```
 
-The browser splits and to the right there is a tab where you can choos "public links". Click on it. Then choos "Create Public link"
+The browser splits and to the right there is a tab where you can choose "public links". Click on it. Then choose "Create Public link"
 
 ```{r  echo=FALSE, fig.cap="public link", fig.align="center", fig.pos="!ht"}
 filename <- file.path("images/11.png")
@@ -167,10 +167,15 @@ Done !
 
 ### Getting data from the collaborators {#Getting}
 
+<<<<<<< Updated upstream
 This is very similar to the above mentioned method with one exception. When you want to get data from external collaboraotrs make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the rgiht, click on it and choose "Create public link".
 Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an experation date, if needed.
+=======
+This is very similar to the above mentioned method with one exception. When you want to get data from external collaborators make sure, that there is enough storage space (per default 5Tb, if you need more, we can get it). Go to the browser and create a folder, where the data should be saved in. You'll see the folder in the list. Now go again to the link symbol to the right, click on it and choose "Create public link". 
+Now instead of download choose **"Upload only (File Drop)**". Also here you can set a password and an expiration date, if needed. 
+>>>>>>> Stashed changes
 
-```{r  echo=FALSE, fig.cap="File Drop link", fig.align="center", fig.pos="!ht"}
+```{r  echo=FALSE, fig.cap="Upload only link", fig.align="center", fig.pos="!ht", out.width=300}
 filename <- file.path("images/12.png")
 if(exists("filename")){
   knitr::include_graphics(filename)
@@ -182,7 +187,7 @@ After confirming the link you can again copy it to the clipboard. A link would l
 When your collaborators get the link and click on it they will see this browser page:
 
 ```{r  echo=FALSE, fig.cap="Anonymous upload", fig.align="center", fig.pos="!ht"}
-filename <- file.path("images/12.png")
+filename <- file.path("images/13.png")
 if(exists("filename")){
   knitr::include_graphics(filename)
 }
